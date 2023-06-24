@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.mersana.androidtest.model.Post" />
+        <variable
+            name="viewModel"
+            type="com.mersana.androidtest.viewModel.MainViewModel" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/imageview_image_postRecyclerView"
+            imageUrl="@{item.imagePath}"
+            android:layout_width="500dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_like_postRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/imageview_image_postRecyclerView">
+
+            <ToggleButton
+                android:id="@+id/imageview_like_postRecyclerView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/toggle_selector"
+                android:textColor="@android:color/white"
+                android:textOff=""
+                android:textOn=""
+                android:checked="true"/>
+
+            <TextView
+                android:id="@+id/textview_likeCount_postRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(item.likeCount)+&quot;  لایک &quot;}"
+
+
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_comment_postRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:orientation="horizontal"
+            android:onClick="@{()->viewModel.detailClick(item)}"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_like_postRecyclerView">
+
+            <ImageView
+                android:id="@+id/imageview_comment_postRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/ic_chat"
+                />
+<!--            android:onClick="@{()->viewModel.detailClick(item)}"-->
+            <TextView
+                android:id="@+id/textview_commentCount_postRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(item.commentCount)+&quot;  نظر دارید &quot; }"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textview_comment_postRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@{item.caption}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_comment_postRecyclerView"
+            tools:layout_editor_absoluteX="8dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

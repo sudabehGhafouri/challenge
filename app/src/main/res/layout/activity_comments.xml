@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mersana.androidtest.viewModel.CommentsViewModel" />
+        <variable
+            name="adapter"
+            type="com.mersana.androidtest.ui.adapter.CommentsRecyclerViewAdapter" />
+        <variable
+            name="activity"
+            type="com.mersana.androidtest.ui.activity.CommentsActivity" />
+        <variable
+            name="show"
+            type="Boolean" />
+        <import type="android.view.View"/>
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/constraint_parent_recyclerComment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:context=".ui.activity.CommentsActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_comments_recyclerComment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            recyclerAdapter="@{adapter}"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/textview_more_CommentActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_comments_recyclerComment"
+            android:visibility="@{show?View.VISIBLE:View.INVISIBLE}"
+            android:onClick="@{()->activity.moreClick()}"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <View
+            android:id="@+id/view2"
+            style="@style/Divider"
+            android:layout_margin="5dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_more_CommentActivity"
+            app:layout_constraintVertical_bias="0.85" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_text_recyclerComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2"
+            app:layout_constraintVertical_bias="1.0">
+
+            <EditText
+                android:id="@+id/edittext_commentText_recyclerComment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.commentText}"
+                android:hint=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_commentSend_recyclerComment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/button_commentSend_recyclerComment" />
+
+
+            <Button
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:id="@+id/button_commentSend_recyclerComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send"
+                android:onClick="@{()->viewModel.sendClick()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>
